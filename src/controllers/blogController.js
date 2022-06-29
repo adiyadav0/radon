@@ -130,6 +130,12 @@ const updateBlog = async function (req, res) {
     let { title, category, body, tags, subcategory, isPublished } = docs;
 
     //VALIDATIONS
+    if (!update.length) {
+      return res.status(400).send({
+        status: false,
+        msg: "Please provide valid data to update",
+      });
+    }
     if (title) {
       if (!isValid.check(title)) {
         return res
@@ -141,8 +147,8 @@ const updateBlog = async function (req, res) {
     if (category) {
       if (!isValid.check(category)) {
         return res
-          .status(400)
-          .send({ status: false, msg: "Please enter a valid category" });
+        .status(400)
+        .send({ status: false, msg: "Please enter a valid category" });
       }
       updates.category = category;
     }
@@ -157,12 +163,6 @@ const updateBlog = async function (req, res) {
     }
     if (!isValid.checkId(id)) {
       return res.status(400).send({ status: false, msg: "Invalid Blog-Id" });
-    }
-    if (!update.length) {
-      return res.status(400).send({
-        status: false,
-        msg: "Please provide valid data to update",
-      });
     }
     if (tags) {
       if (!isValid.checkArr(tags)) {
