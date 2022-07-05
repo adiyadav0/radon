@@ -5,6 +5,7 @@ const evalidator = require("validator");
 const { ConnectionStates } = require("mongoose");
 
 const intern = async function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin','*')
   try {
     let internData = req.body;
     let { name, email, mobile, collegeName } = req.body

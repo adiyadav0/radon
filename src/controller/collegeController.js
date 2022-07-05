@@ -3,6 +3,7 @@ const internModel = require("../models/internModel");
 const valid = require("../validation/validation");
 
 const college = async function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin','*')
   try {
     let collegeData = req.body;
     let { name, fullName, logoLink } = req.body;
@@ -13,7 +14,7 @@ const college = async function (req, res) {
         .send({ status: false, msg: "Body should  be not Empty.. " });
     }
 
-    //<-------These validations for Mandatory fields--------->//
+       ///<-------These validations for Mandatory fields--------->///
 
     if (!valid.isValid(name)) {
       return res
@@ -77,6 +78,7 @@ const college = async function (req, res) {
 };
 
 const getColleges = async function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin','*')
   try {
     let college = req.query.collegeName;
     if (Object.keys(req.query).length == 0) {
@@ -127,7 +129,7 @@ const getColleges = async function (req, res) {
       interns: interns,
     };
 
-    return res.status(200).send({ status: true, Data: internDetails });
+    return res.status(200).send({ status: true, data: internDetails });
   } catch (err) {
     res.status(500).send({ status: false, msg: err.message });
   }
