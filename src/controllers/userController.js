@@ -24,6 +24,10 @@ const registration = async function (req, res) {
     if (!arr.includes(title)) return res.status(400).send({ status: false, message: "Provide valid value for title [Mr,Mrs,Miss]" });
     if (validation.isVerifyString(name)) return res.status(400).send({ status: false, message: "name doesn't contains any digit or symbols" });
     if (!validation.validateEmail(email)) return res.status(400).send({ status: false, message: "Email is Invalid" });
+    
+    let isPresentEmail = await userModel.find({ email: email })
+    if (isPresentEmail.length != 0) return res.status(400).send({ status: false, message: "This email already exists" });
+    ///
     if (!validation.isValidMobileNo(phone)) return res.status(400).send({ status: false, message: "Mobile number is Invalid" });
     if (password.length < 8) return res.status(400).send({ status: false, message: "password is too short" });
     if (password.length >= 16) return res.status(400).send({ status: false, message: "password is too Long" });
@@ -40,12 +44,13 @@ const registration = async function (req, res) {
     }}
   
 
-    let isPresentEmail = await userModel.find({ email: email })
-    if (isPresentEmail.length != 0) return res.status(400).send({ status: false, message: "This email already exists" });
     let isPresentNumber = await userModel.find({ phone: phone })
     if (isPresentNumber.length != 0) return res.status(400).send({ status: false, message: "This Number already Exists" });
 
 
+    //(409)  findOne
+
+      
 
     let save = await userModel.create(data);
     res.status(201).send({ status: true, message: 'Success', data: save });

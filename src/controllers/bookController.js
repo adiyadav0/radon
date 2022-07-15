@@ -74,7 +74,7 @@ const createBook = async function (req, res) {
        subcatSmall = subcategory.toLowerCase();
     }
   let catSmall = category.toLowerCase();
-  console.log(subcategory)
+  
  
   
    

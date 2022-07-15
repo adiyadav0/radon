@@ -9,6 +9,7 @@ app.use(express.json());// --> ye req.body mai data ko set krta hai tabhi hum re
 
 const url="mongodb+srv://functionup:Qa8Frz5zwqHmw33u@cluster0.3pryrpd.mongodb.net/group3Database";
 mongoose.connect(url,{useNewUrlParser:true})
+
 .then(()=>console.log("Mongoose connected"))
 .catch(err=>console.log(err));
 

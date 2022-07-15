@@ -45,7 +45,7 @@ const createReview = async function(req,res)
     ...data
   }
 
-  console.log(data.reviewedAt)
+
   if(review)
   {
     if(!validation.isValid(review)) return res.status(400).send({ status: false, message: "review tag should not be empty" });
@@ -141,6 +141,7 @@ const updateReivewData = async function(req,res)
   let totalReviewsData = await reviewModel.find({bookId:bookId , _id:reviewId, isDeleted:false}).select({createdAt:0,updatedAt:0,isDeleted:0,__v:0})
  
   let output = JSON.parse(JSON.stringify(bookIdExistOrNot))
+
   output.reviewsData=totalReviewsData
   res.status(200).send({status:true, message:'Success', data:output})
 
@@ -163,6 +164,7 @@ const deleteReviewData = async function(req,res)
 
     let bookIdExistOrNot = await booksModel.findById({_id:bookId,isDeleted:false})
     if(!bookIdExistOrNot) return res.status(404).send({status:false, message:`None of the books exists on this [${bookId}] bookId`})
+    
     let prevReviewCount = bookIdExistOrNot.reviews
     let reviewIdExistOrNot = await reviewModel.findById({_id:reviewId,isDeleted:false})
     if(!reviewIdExistOrNot) return res.status(404).send({status:false, message: `None of the review exists on this [${reviewId}] reviewId`})

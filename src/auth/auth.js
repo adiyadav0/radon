@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const userController = require('../controllers/userController')
 
+
 const tokenverification = function(req,res,next)
 {
     try{
@@ -18,11 +19,7 @@ const tokenverification = function(req,res,next)
         next();
     }catch(error){
         res.status(500).send({status:false, message:error.message});
-
-    }
-    
-
-
+    }    
 }
 
 module.exports = {
